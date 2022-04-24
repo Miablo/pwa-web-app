@@ -34,16 +34,7 @@ import {
 const selectedTicker = "AAPL";
 const { Title } = Typography;
 
-const learnedData = [
-    { x: '2020-01-01', y: 30 },
-    { x: '2020-01-02', y: 40 },
-    { x: '2020-01-03', y: 80 },
-];
-
-const accessors = {
-    xAccessor: d => d.x,
-    yAccessor: d => d.y,
-};
+const $RefParser = require("@apidevtools/json-schema-ref-parser");
 
 const chartData = {
         labels: ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
@@ -85,28 +76,60 @@ export function Graph() {
             .then((timeseries) => {
                 setTimeseries(timeseries)
                 //console.log(timeseries)
-
             })
         );
     }, [])
 
-  const datez = timeseries.historic_timeseries;
-  const valuez = timeseries.historic_timeseries;
+  const historicTimeseries = timeseries.historic_timeseries;
+  console.log(historicTimeseries)
 
-// NEED TO CREATE THIS recordedData object FROM the fetched json
+    let historicData = [];
+    var dates, values;
+    $RefParser.dereference(timeseries, (err, historic) => {
+        if (err) {
+            console.error(err);
+        }
+        else {
+            dates = historic.historic_timeseries.dates
+            console.log(dates[0]);
+            values=historic.historic_timeseries.values
+            console.log(values[0]);
+            for(let i = 0; i < 365; i++)
+            {
+                historicData.push({date: dates[i], value: values[i]})
+            }
+        }
+    })
 
-//    const recordedData = [
-//        { x: '2020-01-01', y: 50 },
-//        { x: '2020-01-02', y: 10 },
-//        { x: '2020-01-03', y: 20 },
-//    ];
+    let predictionData = [];
+    var predictionDates, predictionValues;
+    $RefParser.dereference(timeseries, (err, prediction) => {
+        if (err) {
+            console.error(err);
+        }
+        else {
+            predictionDates = prediction.prediction_timeseries.dates
+            console.log(predictionDates[0]);
+            predictionValues = prediction.prediction_timeseries.values
+            console.log(predictionValues[0]);
+            for(let i = 0; i < 5; i++)
+            {
+                predictionData.push({date: dates[i], value: values[i]})
+            }
+            console.log(predictionData);
+        }
+    })
 
-const recordedData = []
+    historicData = []
+    predictionData = []
 
+const accessors = {
+    xAccessor: d => d.date,
+    yAccessor: d => d.value,
+};
 
-//console.log(timeseries.historic_timeseries.values)
-console.log(recordedData);
-
+//console.log(timeseries.historic_timeseries)
+//console.log(historicData);
 
     return(
 
@@ -171,8 +194,8 @@ console.log(recordedData);
                 <AnimatedAxis orientation="left" />
                 <AnimatedAxis orientation="bottom" />
                 <AnimatedGrid columns={false} numTicks={4} />
-                <AnimatedLineSeries dataKey="Recorded Data" data={recordedData} {...accessors} />
-                <AnimatedLineSeries dataKey="Learned Data" data={learnedData} {...accessors} />
+                <AnimatedLineSeries dataKey="Recorded Data" data={historicData} {...accessors} />
+                <AnimatedLineSeries dataKey="Learned Data" data={predictionData} {...accessors} />
                 <Tooltip
                     snapTooltipToDatumX
                     snapTooltipToDatumY
@@ -200,8 +223,8 @@ console.log(recordedData);
             <AnimatedAxis orientation="left" />
             <AnimatedAxis orientation="bottom" />
             <AnimatedGrid columns={false} numTicks={4} />
-            <AnimatedLineSeries dataKey="Recorded Data" data={recordedData} {...accessors} />
-            <AnimatedLineSeries dataKey="Learned Data" data={learnedData} {...accessors} />
+            <AnimatedLineSeries dataKey="Recorded Data" data={historicData} {...accessors} />
+            <AnimatedLineSeries dataKey="Learned Data" data={predictionData} {...accessors} />
             <Tooltip
                 snapTooltipToDatumX
                 snapTooltipToDatumY

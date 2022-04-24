@@ -50,6 +50,8 @@ export function CompanyPanel() {
     }, [])
 
     const ticky = data.tickers;
+    const iteration = 0;
+    console.log(ticky)
 
 	return (
 		<Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
@@ -79,8 +81,8 @@ export function CompanyPanel() {
           ticky?.map((menuitem) => (
             <Menu.Item key={clickHandler()} icon={<PieChartOutlined />}>
             {menuitem}
-            </Menu.Item>     
-            ))}  
+            </Menu.Item>
+            ))}
         </div>
       </SubMenu>
     </Menu>
