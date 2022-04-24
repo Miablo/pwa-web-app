@@ -94,10 +94,11 @@ export function Graph() {
             console.log(dates[0]);
             values=historic.historic_timeseries.values
             console.log(values[0]);
-            for(let i = 0; i < 365; i++)
+            for(let i = 0; i < 30; i++)
             {
-                historicData.push({date: dates[i], value: values[i]})
+                historicData.push({date: dates[i+335], value: values[i+335]})
             }
+            console.log(historicData)
         }
     })
 
@@ -114,14 +115,11 @@ export function Graph() {
             console.log(predictionValues[0]);
             for(let i = 0; i < 5; i++)
             {
-                predictionData.push({date: dates[i], value: values[i]})
+                predictionData.push({date: predictionDates[i], value: predictionValues[i]})
             }
             console.log(predictionData);
         }
     })
-
-    historicData = []
-    predictionData = []
 
 const accessors = {
     xAccessor: d => d.date,
@@ -216,34 +214,6 @@ const accessors = {
 
         </Card>
     </div>
-
-      <div className="cardbox">
-        <Card size="medium" bordered={false}>
-         <XYChart height={300} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
-            <AnimatedAxis orientation="left" />
-            <AnimatedAxis orientation="bottom" />
-            <AnimatedGrid columns={false} numTicks={4} />
-            <AnimatedLineSeries dataKey="Recorded Data" data={historicData} {...accessors} />
-            <AnimatedLineSeries dataKey="Learned Data" data={predictionData} {...accessors} />
-            <Tooltip
-                snapTooltipToDatumX
-                snapTooltipToDatumY
-                showVerticalCrosshair
-                showSeriesGlyphs
-                renderTooltip={({ tooltipData, colorScale }) => (
-                    <div>
-                        <div style={{ color: colorScale(tooltipData.nearestDatum.key) }}>
-                            {tooltipData.nearestDatum.key}
-                        </div>
-                        {accessors.xAccessor(tooltipData.nearestDatum.datum)}
-                        {', '}
-                        {accessors.yAccessor(tooltipData.nearestDatum.datum)}
-                    </div>
-            )}
-        />
-    </XYChart>
-</Card>
-</div>
 
     </Space>
 
