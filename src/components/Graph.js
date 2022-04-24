@@ -96,7 +96,7 @@ export function Graph() {
             console.log(values[0]);
             for(let i = 0; i < 30; i++)
             {
-                historicData.push({date: dates[i+335], value: values[i+335]})
+                historicData.push({date: dates[i+335].substr(0,10), value: values[i+335]})
             }
             console.log(historicData)
         }
