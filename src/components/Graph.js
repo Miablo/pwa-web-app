@@ -122,11 +122,11 @@ const historicData = [
 ]
 
 const predictionData = [
-    {date: '2022-04-23', value: 145.77},
-    {date: '2022-04-24', value: 145.78},
-    {date: '2022-04-25', value: 145.79},
-    {date: '2022-04-26', value: 145.78},
-    {date: '2022-04-17', value: 145.79},
+    {date: '2022-04-23', value: 169.03},
+    {date: '2022-04-24', value: 170.33},
+    {date: '2022-04-25', value: 171.6},
+    {date: '2022-04-26', value: 172.67},
+    {date: '2022-04-17', value: 173.4},
 ]
 
 const accessors = {
