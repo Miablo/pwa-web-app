@@ -36,35 +36,6 @@ const { Title } = Typography;
 
 const $RefParser = require("@apidevtools/json-schema-ref-parser");
 
-const chartData = {
-        labels: ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
-        datasets: [
-            {
-                label: 'Total Commits',
-                data: [35, 65, 33, 21, 57, 43, 13],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(153, 102, 255, 1)',
-                ],
-                borderWidth: 1,
-            },
-        ],
-    }
-
 export function Graph() {
 
   const [timeseries,setTimeseries]=useState([]);
@@ -96,7 +67,7 @@ export function Graph() {
             console.log(values[0]);
             for(let i = 0; i < 30; i++)
             {
-                historicData.push({date: dates[i+335].substr(0,10), value: values[i+335]})
+                historicData.push({x: dates[i+335].substr(0,10), y: values[i+335]})
             }
             console.log(historicData)
         }
@@ -115,15 +86,15 @@ export function Graph() {
             console.log(predictionValues[0]);
             for(let i = 0; i < 5; i++)
             {
-                predictionData.push({date: predictionDates[i], value: predictionValues[i]})
+                predictionData.push({x: predictionDates[i], y: predictionValues[i]})
             }
             console.log(predictionData);
         }
     })
 
 const accessors = {
-    xAccessor: d => d.date,
-    yAccessor: d => d.value,
+    xAccessor: d => d.x,
+    yAccessor: d => d.y,
 };
 
 //console.log(timeseries.historic_timeseries)
