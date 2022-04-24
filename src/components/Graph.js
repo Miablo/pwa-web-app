@@ -200,8 +200,8 @@ const accessors = {
                 <AnimatedAxis orientation="left" />
                 <AnimatedAxis orientation="bottom" />
                 <AnimatedGrid columns={false} numTicks={4} />
-                <AnimatedLineSeries dataKey="Recorded Data" data={historicData} {...accessors} />
-                <AnimatedLineSeries dataKey="Learned Data" data={predictionData} {...accessors} />
+                <AnimatedLineSeries dataKey="Historic Data" data={historicData} {...accessors} />
+                <AnimatedLineSeries dataKey="Prediction Data" data={predictionData} {...accessors} />
                 <Tooltip
                     snapTooltipToDatumX
                     snapTooltipToDatumY
