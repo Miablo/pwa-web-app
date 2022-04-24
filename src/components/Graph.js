@@ -139,64 +139,9 @@ const accessors = {
 
     return(
 
-    <Space direction="vertical" size="middle">
-
-    <Space direction="horizontal" size="large">
-        <div className="cardbox">
-                <Card bordered={false}>
-                    <Statistic 
-                        title="Bitcoin" 
-                        value={11.28}
-                        precision={2}
-                        prefix={<StockOutlined />}
-                        suffix="%" />
-                </Card>
-        
-        </div>
-
-        <div className="cardbox">
-        
-                <Card bordered={false}>
-                    <Statistic 
-                        title="Microsoft" 
-                        value={11.28}
-                        precision={2}
-                        prefix={<RiseOutlined />}
-                        suffix="%" />
-                </Card>
-         
-        </div>
-
-        <div className="cardbox">
-        
-                <Card bordered={false}>
-                    <Statistic 
-                        title="Apple" 
-                        value={11.28}
-                        precision={2}
-                        prefix={<BoxPlotTwoTone twoToneColor="#F63E4F" />}
-                        suffix="%" />
-                </Card>
-     
-        </div>
-
-            <div className="cardbox">
-            
-                <Card bordered={false}>
-                    <Statistic 
-                        title="Gold" 
-                        value={9.3}
-                        precision={2}
-                        prefix={<GoldTwoTone twoToneColor="#F63E4F" />}
-                        suffix="%" />
-                </Card>
-           
-        </div>
-    </Space>
-
      <div className="cardbox">
         <Card size="medium" bordered={false}>
-            <XYChart height={300} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
+            <XYChart height={300} xScale={{ type: 'band' }} yScale={{ type: 'exponential' }}>
                 <AnimatedAxis orientation="left" />
                 <AnimatedAxis orientation="bottom" />
                 <AnimatedGrid columns={false} numTicks={4} />
@@ -223,7 +168,6 @@ const accessors = {
         </Card>
     </div>
 
-    </Space>
 
         )
 }
