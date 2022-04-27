@@ -15,13 +15,6 @@ import '../index.css';
 import 'antd/dist/antd.css';
 
 import {
-  RiseOutlined,
-  StockOutlined,
-  GoldTwoTone,
-  BoxPlotTwoTone,
-} from '@ant-design/icons';
-
-import {
     AnimatedAxis, // any of these can be non-animated equivalents
     AnimatedGrid,
     AnimatedLineSeries,
@@ -29,21 +22,11 @@ import {
     Tooltip,
 } from '@visx/xychart';
 
-const predictionData = [
-    {x: '2022-01-22', y: 177.77},
-    {x: '2022-01-30', y: 145.78},
-    {x: '2022-03-04', y: 145.79},
-    {x: '2022-03-22', y: 145.78},
-    {x: '2022-04-20', y: 145.79},
-]
-
-const historicData = [ ]
+const historicData = [ ], predictionData = [ ];
 
 export function Graph({name}) {
 
     const [state, setState] = useState("AAPL");
-
-
     const [timeseries,setTimeseries]=useState([]);
 
     // Collect Selected Data
@@ -52,23 +35,25 @@ export function Graph({name}) {
         .then((res) => res.json()
             .then((timeseries) => {
                 setTimeseries(timeseries)
-                console.log(timeseries)
-                console.log(timeseries.historic_timeseries.dates)
-                console.log(timeseries.historic_timeseries.values)
-                console.log(predictionData)
-             
-                for(let i = 0; i < 364; i++){
 
-                    historicData.push({x: timeseries.historic_timeseries.dates[i], 
-                    y: timeseries.historic_timeseries.values[i]})
+                for(let i = 335; i < 365; i++){
 
-                    // predictionData.push({x: timeseries.prediction_timeseries.dates[i], 
-                    // y: timeseries.prediction_timeseries.values[i]})
-                    // returning null
+                    historicData.push({x: timeseries.historic_timeseries.dates[i].substr(0,10),
+                        y: timeseries.historic_timeseries.values[i]})
                 }
-           
 
+                for(let j = 0; j < 5; j++)
+                {
+                    predictionData.push({x: timeseries.prediction_timeseries.dates[j].substr(0,10),
+                        y: timeseries.prediction_timeseries.values[j]})
+                }
 
+                //testing
+                //console.log(timeseries)
+                //console.log(timeseries.historic_timeseries.dates)
+                //console.log(timeseries.historic_timeseries.values)
+                //console.log(historicData);
+                //console.log(predictionData)
             })
         );
     }, [])
