@@ -71,11 +71,6 @@ export function Graph({name}) {
         );
     }, [])
 
-<<<<<<< HEAD
-=======
- 
-   
->>>>>>> 2e9b58d81328ddc95fd6e792ccc6bb01e9aa5326
 const accessors = {
     xAccessor: d => d.x,
     yAccessor: d => d.y,

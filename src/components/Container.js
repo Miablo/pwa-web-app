@@ -26,13 +26,9 @@ export function Main() {
       <Layout style={{ padding: '24px' }} >
 
         <PageHeader 
-<<<<<<< HEAD
+
           title="CMPSC445 Final Project" 
           subTitle="ML-Based Stock Analysis" />
-=======
-          title="CMPSC445 Final Project"
-          subTitle="ML-Based Stock Analysis" />
->>>>>>> 2e9b58d81328ddc95fd6e792ccc6bb01e9aa5326
 
           <Content>
               <Graph />

@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.6.0",
-    "@apidevtools/json-schema-ref-parser": "^9.0.9",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.1.2",
@@ -17,7 +16,6 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "3.4.1",
     "react-spring": "^9.4.4",
-    "swagger-ui-react": "^4.10.3",
     "web-vitals": "2.1.4"
   },
   "scripts": {

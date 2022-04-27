@@ -22,6 +22,8 @@ import {
 
 export function CompanyPanel() {
 
+  const[state, setState] = useState([]);
+
   function handleClick(name) {
     console.log(name);
 
@@ -29,11 +31,10 @@ export function CompanyPanel() {
     setState('name');
   }
  // trying to return this property to graph.js and call the graph to load with new company
-  return <Graph />
-
+  // return <Graph />
 }
 
-  const[state, setState] = useState([]);
+
 
   const [data,setTickers]=useState([]);
 
