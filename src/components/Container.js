@@ -26,8 +26,9 @@ export function Main() {
       <Layout style={{ padding: '24px' }} >
 
         <PageHeader 
-          title="Title" 
-          subTitle="This is a subtitle" />
+
+          title="CMPSC445 Final Project" 
+          subTitle="ML-Based Stock Analysis" />
 
           <Content>
               <Graph />

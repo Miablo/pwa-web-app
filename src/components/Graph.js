@@ -9,13 +9,12 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Space, Card, Typography, Col, Row, Statistic, Empty } from 'antd';
+import { Space, Card, Typography, Statistic } from 'antd';
 
 import '../index.css';
 import 'antd/dist/antd.css';
 
 import {
-  FolderTwoTone,
   RiseOutlined,
   StockOutlined,
   GoldTwoTone,
@@ -30,173 +29,67 @@ import {
     Tooltip,
 } from '@visx/xychart';
 
-// For Testing
-const selectedTicker = "AAPL";
-const { Title } = Typography;
+const predictionData = [
+    {x: 'fart-fart-fart', y: 177.77},
+    {x: 'fart-fart-fart', y: 145.78},
+    {x: 'fart-fart-fart', y: 145.79},
+    {x: 'fart-fart-fart', y: 145.78},
+    {x: 'fart-fart-fart', y: 145.79},
+]
 
-const $RefParser = require("@apidevtools/json-schema-ref-parser");
+const historicData = [ ]
 
-const chartData = {
-        labels: ['Mon', 'Tues', 'Wed', 'Thur', 'Fri', 'Sat', 'Sun'],
-        datasets: [
-            {
-                label: 'Total Commits',
-                data: [35, 65, 33, 21, 57, 43, 13],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)',
-                    'rgba(153, 102, 255, 1)',
-                ],
-                borderWidth: 1,
-            },
-        ],
-    }
+export function Graph({name}) {
 
-export function Graph() {
+    const [state, setState] = useState("AAPL");
 
-  const [timeseries,setTimeseries]=useState([]);
+
+    const [timeseries,setTimeseries]=useState([]);
 
     // Collect Selected Data
     useEffect(() => {
-        fetch("http://localhost:5000/data/" + selectedTicker)
+        fetch("http://localhost:5000/data/" + state)
         .then((res) => res.json()
             .then((timeseries) => {
                 setTimeseries(timeseries)
-                //console.log(timeseries)
+                console.log(timeseries)
+                console.log(timeseries.historic_timeseries.dates)
+                console.log(timeseries.historic_timeseries.values)
+                console.log(predictionData)
+             
+                for(let i = 0; i < 364; i++){
+
+                    historicData.push({x: timeseries.historic_timeseries.dates[i], 
+                    y: timeseries.historic_timeseries.values[i]})
+
+                    // predictionData.push({x: timeseries.prediction_timeseries.dates[i], 
+                    // y: timeseries.prediction_timeseries.values[i]})
+                    // returning null
+                }
+           
+
+
             })
         );
     }, [])
-
-  const historicTimeseries = timeseries.historic_timeseries;
-  console.log(historicTimeseries)
-
-    let historicData = [];
-    //var dates, values;
-    $RefParser.dereference(timeseries, (err, historic) => {
-        if (err) {
-            console.error(err);
-        }
-        else {
-            let dates = historic.historic_timeseries.dates
-            console.log(dates[0]);
-            let values=historic.historic_timeseries.values
-            console.log(values[0]);
-            for(let i = 0; i < 364; i++)
-            {
-                historicData.push({x: dates[i], y: values[i]})
-            }
-            console.log(historicData)
-        }
-    })
-
-    // let predictionData = [];
-    // var predictionDates, predictionValues;
-    // $RefParser.dereference(timeseries, (err, prediction) => {
-    //     if (err) {
-    //         console.error(err);
-    //     }
-    //     else {
-    //         predictionDates = prediction.prediction_timeseries.dates
-    //         console.log(predictionDates[0]);
-    //         predictionValues = prediction.prediction_timeseries.values
-    //         console.log(predictionValues[0]);
-    //         for(let i = 0; i < 5; i++)
-    //         {
-    //             predictionData.push({date: dates[i], value: values[i]})
-    //         }
-    //         console.log(predictionData);
-    //     }
-    // })
-
-    //zhistoricData = []
-    // predictionData = []
 
 const accessors = {
     xAccessor: d => d.x,
     yAccessor: d => d.y,
 };
 
-//console.log(timeseries.historic_timeseries)
-//console.log(historicData);
 
     return(
 
-    <Space direction="vertical" size="middle">
-
-    <Space direction="horizontal" size="large">
-        <div className="cardbox">
-                <Card bordered={false}>
-                    <Statistic 
-                        title="Bitcoin" 
-                        value={11.28}
-                        precision={2}
-                        prefix={<StockOutlined />}
-                        suffix="%" />
-                </Card>
-        
-        </div>
-
-        <div className="cardbox">
-        
-                <Card bordered={false}>
-                    <Statistic 
-                        title="Microsoft" 
-                        value={11.28}
-                        precision={2}
-                        prefix={<RiseOutlined />}
-                        suffix="%" />
-                </Card>
-         
-        </div>
-
-        <div className="cardbox">
-        
-                <Card bordered={false}>
-                    <Statistic 
-                        title="Apple" 
-                        value={11.28}
-                        precision={2}
-                        prefix={<BoxPlotTwoTone twoToneColor="#F63E4F" />}
-                        suffix="%" />
-                </Card>
-     
-        </div>
-
-            <div className="cardbox">
-            
-                <Card bordered={false}>
-                    <Statistic 
-                        title="Gold" 
-                        value={9.3}
-                        precision={2}
-                        prefix={<GoldTwoTone twoToneColor="#F63E4F" />}
-                        suffix="%" />
-                </Card>
-           
-        </div>
-    </Space>
-
      <div className="cardbox">
         <Card size="medium" bordered={false}>
-            <XYChart height={300} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
+            <XYChart height={300} xScale={{ type: 'band' }} yScale={{ type: 'exponential' }}>
                 <AnimatedAxis orientation="left" />
                 <AnimatedAxis orientation="bottom" />
                 <AnimatedGrid columns={false} numTicks={4} />
-                <AnimatedLineSeries dataKey="Recorded Data" data={historicData} {...accessors} />
-                {/* <AnimatedLineSeries dataKey="Learned Data" data={predictionData} {...accessors} /> */}
+                <AnimatedLineSeries dataKey="Historic Data" data={historicData} {...accessors} />
+                <AnimatedLineSeries dataKey="Prediction Data" data={predictionData} {...accessors} />
+
                 <Tooltip
                     snapTooltipToDatumX
                     snapTooltipToDatumY
@@ -218,35 +111,6 @@ const accessors = {
         </Card>
     </div>
 
-      <div className="cardbox">
-        <Card size="medium" bordered={false}>
-         <XYChart height={300} xScale={{ type: 'band' }} yScale={{ type: 'linear' }}>
-            <AnimatedAxis orientation="left" />
-            <AnimatedAxis orientation="bottom" />
-            <AnimatedGrid columns={false} numTicks={4} />
-            <AnimatedLineSeries dataKey="Recorded Data" data={historicData} {...accessors} />
-            {/* <AnimatedLineSeries dataKey="Learned Data" data={predictionData} {...accessors} /> */}
-            <Tooltip
-                snapTooltipToDatumX
-                snapTooltipToDatumY
-                showVerticalCrosshair
-                showSeriesGlyphs
-                renderTooltip={({ tooltipData, colorScale }) => (
-                    <div>
-                        <div style={{ color: colorScale(tooltipData.nearestDatum.key) }}>
-                            {tooltipData.nearestDatum.key}
-                        </div>
-                        {accessors.xAccessor(tooltipData.nearestDatum.datum)}
-                        {', '}
-                        {accessors.yAccessor(tooltipData.nearestDatum.datum)}
-                    </div>
-            )}
-        />
-    </XYChart>
-</Card>
-</div>
-
-    </Space>
 
         )
 }

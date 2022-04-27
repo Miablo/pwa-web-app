@@ -16,7 +16,7 @@ import CompanyPanel from './LeftPanel.js'
 import 'antd/dist/antd.css';
 import '../index.css';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 export function Main() {
 
