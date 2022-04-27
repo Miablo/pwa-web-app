@@ -43,6 +43,7 @@ export function Graph({name}) {
 
     const [state, setState] = useState("AAPL");
 
+
     const [timeseries,setTimeseries]=useState([]);
 
     // Collect Selected Data
@@ -67,6 +68,7 @@ export function Graph({name}) {
                 }
            
 
+
             })
         );
     }, [])
@@ -75,6 +77,7 @@ const accessors = {
     xAccessor: d => d.x,
     yAccessor: d => d.y,
 };
+
 
     return(
 
@@ -86,6 +89,7 @@ const accessors = {
                 <AnimatedGrid columns={false} numTicks={4} />
                 <AnimatedLineSeries dataKey="Historic Data" data={historicData} {...accessors} />
                 <AnimatedLineSeries dataKey="Prediction Data" data={predictionData} {...accessors} />
+
                 <Tooltip
                     snapTooltipToDatumX
                     snapTooltipToDatumY
