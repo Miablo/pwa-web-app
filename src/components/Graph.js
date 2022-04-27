@@ -30,11 +30,11 @@ import {
 } from '@visx/xychart';
 
 const predictionData = [
-    {x: 'fart-fart-fart', y: 177.77},
-    {x: 'fart-fart-fart', y: 145.78},
-    {x: 'fart-fart-fart', y: 145.79},
-    {x: 'fart-fart-fart', y: 145.78},
-    {x: 'fart-fart-fart', y: 145.79},
+    {x: '2022-01-22', y: 177.77},
+    {x: '2022-01-30', y: 145.78},
+    {x: '2022-03-04', y: 145.79},
+    {x: '2022-03-22', y: 145.78},
+    {x: '2022-04-20', y: 145.79},
 ]
 
 const historicData = [ ]
