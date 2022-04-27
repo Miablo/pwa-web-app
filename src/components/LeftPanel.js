@@ -28,7 +28,7 @@ export function CompanyPanel() {
     const panelToGraph = () => {
     setState('name');
   }
-
+ // trying to return this property to graph.js and call the graph to load with new company
   return <Graph />
 
 }
