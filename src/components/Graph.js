@@ -9,17 +9,10 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Space, Card, Typography, Statistic } from 'antd';
+import { Card } from 'antd';
 
 import '../index.css';
 import 'antd/dist/antd.css';
-
-import {
-  RiseOutlined,
-  StockOutlined,
-  GoldTwoTone,
-  BoxPlotTwoTone,
-} from '@ant-design/icons';
 
 import {
     AnimatedAxis, // any of these can be non-animated equivalents
@@ -30,11 +23,11 @@ import {
 } from '@visx/xychart';
 
 const predictionData = [
-    {x: 'fart-fart-fart', y: 177.77},
-    {x: 'fart-fart-fart', y: 145.78},
-    {x: 'fart-fart-fart', y: 145.79},
-    {x: 'fart-fart-fart', y: 145.78},
-    {x: 'fart-fart-fart', y: 145.79},
+    {x: '2022-01-22', y: 177.77},
+    {x: '2022-01-30', y: 145.78},
+    {x: '2022-03-04', y: 145.79},
+    {x: '2022-03-22', y: 145.78},
+    {x: '2022-04-20', y: 145.79},
 ]
 
 const historicData = [ ]
@@ -42,7 +35,6 @@ const historicData = [ ]
 export function Graph({name}) {
 
     const [state, setState] = useState("AAPL");
-
     const [timeseries,setTimeseries]=useState([]);
 
     // Collect Selected Data
