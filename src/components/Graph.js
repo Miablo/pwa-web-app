@@ -9,13 +9,12 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Space, Card, Typography, Col, Row, Statistic, Empty } from 'antd';
+import { Space, Card, Typography, Statistic } from 'antd';
 
 import '../index.css';
 import 'antd/dist/antd.css';
 
 import {
-  FolderTwoTone,
   RiseOutlined,
   StockOutlined,
   GoldTwoTone,
@@ -30,112 +29,52 @@ import {
     Tooltip,
 } from '@visx/xychart';
 
-// For Testing
-const selectedTicker = "AAPL";
-const { Title } = Typography;
+const predictionData = [
+    {x: 'fart-fart-fart', y: 177.77},
+    {x: 'fart-fart-fart', y: 145.78},
+    {x: 'fart-fart-fart', y: 145.79},
+    {x: 'fart-fart-fart', y: 145.78},
+    {x: 'fart-fart-fart', y: 145.79},
+]
 
-const $RefParser = require("@apidevtools/json-schema-ref-parser");
+const historicData = [ ]
 
-export function Graph() {
+export function Graph({name}) {
 
-  const [timeseries,setTimeseries]=useState([]);
+    const [state, setState] = useState("AAPL");
+
+    const [timeseries,setTimeseries]=useState([]);
 
     // Collect Selected Data
     useEffect(() => {
-        fetch("http://localhost:5000/data/" + selectedTicker)
+        fetch("http://localhost:5000/data/" + state)
         .then((res) => res.json()
             .then((timeseries) => {
                 setTimeseries(timeseries)
-                //console.log(timeseries)
+                console.log(timeseries)
+                console.log(timeseries.historic_timeseries.dates)
+                console.log(timeseries.historic_timeseries.values)
+                console.log(predictionData)
+             
+                for(let i = 0; i < 364; i++){
+
+                    historicData.push({x: timeseries.historic_timeseries.dates[i], 
+                    y: timeseries.historic_timeseries.values[i]})
+
+                    // predictionData.push({x: timeseries.prediction_timeseries.dates[i], 
+                    // y: timeseries.prediction_timeseries.values[i]})
+                    // returning null
+                }
+           
+
             })
         );
     }, [])
 
-  const historicTimeseries = timeseries.historic_timeseries;
-  console.log(historicTimeseries)
-
-    /*
-    let historicData = [];
-    var dates, values;
-
-    $RefParser.dereference(timeseries, (err, historic) => {
-        if (err) {
-            console.error(err);
-        }
-        else {
-            dates = historic.historic_timeseries.dates
-            console.log(dates[0]);
-            values=historic.historic_timeseries.values
-            console.log(values[0]);
-            for(let i = 0; i < 30; i++)
-            {
-                historicData.push({x: dates[i+335].substr(0,10), y: values[i+335]})
-            }
-            console.log(historicData)
-        }
-    })
-
-    let predictionData = [];
-    var predictionDates, predictionValues;
-    $RefParser.dereference(timeseries, (err, prediction) => {
-        if (err) {
-            console.error(err);
-        }
-        else {
-            predictionDates = prediction.prediction_timeseries.dates
-            console.log(predictionDates[0]);
-            predictionValues = prediction.prediction_timeseries.values
-            console.log(predictionValues[0]);
-            for(let i = 0; i < 5; i++)
-            {
-                predictionData.push({x: predictionDates[i], y: predictionValues[i]})
-            }
-            console.log(predictionData);
-        }
-    })
-     */
-
-const historicData = [
-    {date: '2022-04-22', value: 161.79},
-    {date: '2022-04-21', value: 166.42},
-    {date: '2022-04-20', value: 167.23},
-    {date: '2022-04-19', value: 167.4},
-    {date: '2022-04-18', value: 165.07},
-    {date: '2022-04-14', value: 165.29},
-    {date: '2022-04-13', value: 170.4},
-    {date: '2022-04-12', value: 167.66},
-    {date: '2022-04-11', value: 165.75},
-    {date: '2022-04-08', value: 170.09},
-    {date: '2022-04-07', value: 172.14},
-    {date: '2022-04-06', value: 171.83},
-    {date: '2022-04-05', value: 175.05},
-    {date: '2022-04-04', value: 178.44},
-    {date: '2022-04-01', value: 175.6},
-    {date: '2022-03-31', value: 174.72},
-    {date: '2022-03-30', value: 174.07},
-    {date: '2022-03-29', value: 170.21},
-    {date: '2022-03-28', value: 168.82},
-    {date: '2022-03-25', value: 165.38},
-    {date: '2022-03-24', value: 163.98},
-    {date: '2022-03-23', value: 160.62},
-    {date: '2022-03-22', value: 159.59},
-]
-
-const predictionData = [
-    {date: '2022-04-23', value: 145.77},
-    {date: '2022-04-24', value: 145.78},
-    {date: '2022-04-25', value: 145.79},
-    {date: '2022-04-26', value: 145.78},
-    {date: '2022-04-17', value: 145.79},
-]
-
 const accessors = {
-    xAccessor: d => d.date,
-    yAccessor: d => d.value,
+    xAccessor: d => d.x,
+    yAccessor: d => d.y,
 };
-
-//console.log(timeseries.historic_timeseries)
-//console.log(historicData);
 
     return(
 

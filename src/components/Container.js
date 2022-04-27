@@ -26,8 +26,8 @@ export function Main() {
       <Layout style={{ padding: '24px' }} >
 
         <PageHeader 
-          title="Title" 
-          subTitle="This is a subtitle" />
+          title="Dashboard" 
+          subTitle="Stock Prediction Forecaster" />
 
           <Content>
               <Graph />
