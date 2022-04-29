@@ -24,17 +24,16 @@ export function CompanyPanel() {
 
   const[state, setState] = useState([]);
 
-  function handleClick(name) {
-    console.log(name);
-
-    const panelToGraph = () => {
-    setState('name');
-  }
- // trying to return this property to graph.js and call the graph to load with new company
-  // return <Graph />
-}
-
-
+    function handleClick(name) {
+        console.log(name);
+        const panelToGraph = () => {
+            setState(name);
+            console.log(state);
+        }
+        //Graph();
+        // trying to return this property to graph.js and call the graph to load with new company
+        // return <Graph />
+    }
 
   const [data,setTickers]=useState([]);
 
