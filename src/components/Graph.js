@@ -15,17 +15,17 @@ import '../index.css';
 import 'antd/dist/antd.css';
 
 import {
-    AnimatedAxis, // any of these can be non-animated equivalents
-    AnimatedGrid,
-    AnimatedLineSeries,
+    Axis, // any of these can be non-animated equivalents
+    Grid,
+    LineSeries,
     XYChart,
     Tooltip,
 } from '@visx/xychart';
 
-const predictionData = [ ], historicData = [ ];
+let predictionData = [ ], historicData = [ ];
 
 export function Graph(name) {
-    
+    predictionData = [ ]; historicData = [ ];
     const [state, setState] = useState(name.panelToGraph);
     const [timeseries,setTimeseries]=useState([]);
     const nameRef = useRef();
@@ -44,7 +44,7 @@ export function Graph(name) {
                 setTimeseries(timeseries)
                 console.log(timeseries.historic_timeseries.dates)
                 console.log(timeseries.historic_timeseries.values)
-               
+
                 for(let i = 335; i < 365; i++){
                     historicData.push({x: timeseries.historic_timeseries.dates[i].substr(0,10),
                         y: timeseries.historic_timeseries.values[i]})
@@ -54,7 +54,7 @@ export function Graph(name) {
                     predictionData.push({x: timeseries.prediction_timeseries.dates[j].substr(0,10),
                         y: timeseries.prediction_timeseries.values[j]})
                 }
-           
+
 
             })
         );
@@ -64,15 +64,16 @@ const accessors = {
     xAccessor: d => d.x,
     yAccessor: d => d.y,
 };
+
     return(
      <div className="cardbox">
         <Card size="medium" bordered={false}>
             <XYChart height={300} xScale={{ type: 'band' }} yScale={{ type: 'exponential' }}>
-                <AnimatedAxis orientation="left" />
-                <AnimatedAxis orientation="bottom" />
-                <AnimatedGrid columns={false} numTicks={4} />
-                <AnimatedLineSeries dataKey="Historic Data" data={historicData} {...accessors} />
-                <AnimatedLineSeries dataKey="Prediction Data" data={predictionData} {...accessors} />
+                <Axis orientation="left" />
+                <Axis orientation="bottom" />
+                <Grid columns={false} numTicks={4} />
+                <LineSeries dataKey="Historic Data" data={historicData} {...accessors} />
+                <LineSeries dataKey="Prediction Data" data={predictionData} {...accessors} />
                 <Tooltip
                     snapTooltipToDatumX
                     snapTooltipToDatumY
