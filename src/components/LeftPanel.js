@@ -8,33 +8,34 @@
   =========================================================
  */
 import { Menu, Space } from 'antd';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Layout, PageHeader} from 'antd';
+import { ScreenClassProvider } from 'react-grid-system';
 
 import Graph from './Graph.js';
+
 
 import 'antd/dist/antd.css';
 import '../index.css'
 
 import {
-  HeartTwoTone,
   RocketTwoTone,
 } from '@ant-design/icons';
 
+const { Content, Sider, Footer } = Layout;
+
 export function CompanyPanel() {
 
-  const[state, setState] = useState([]);
+  const[state, setState] = useState("AAPL");
 
   function handleClick(name) {
     console.log(name);
+    setState(name);
 
-    const panelToGraph = () => {
-    setState('name');
-  }
- // trying to return this property to graph.js and call the graph to load with new company
-  // return <Graph />
+    // const functionHandler = (name) => {
+    //   setState(name);
+    // }
 }
-
-
 
   const [data,setTickers]=useState([]);
 
@@ -46,12 +47,15 @@ export function CompanyPanel() {
                 setTickers(data)
             })
         );
+        return <Graph panelToGraph={state} />
     }, [])
 
     const ticky = data.tickers
 
 	return (
-		<Menu theme="dark" mode="inline" style={{ width: '200px' }}>
+
+    <>
+		<Sider><Menu theme="dark" mode="vertical" defaultSelectedKeys={['0']} style={{ width: '200px' }}>
       <div className="space-align-container">
           <Space>
             <RocketTwoTone twoToneColor="#E63946" style={{ fontSize: '30px' }} />
@@ -72,8 +76,29 @@ export function CompanyPanel() {
             </Menu.Item>
             )
           )}
+          
         </div>
       </Menu>
+    </Sider>
+
+    <ScreenClassProvider>
+      <Layout style={{ padding: '24px' }} >
+
+        <PageHeader 
+          title="CMPSC445 Final Project" 
+          subTitle="ML-Based Stock Analysis" />
+
+            <Graph panelToGraph={state} />
+
+        </Layout>
+    </ScreenClassProvider>
+
+     <Footer style={{ textAlign: 'center', background: "#557C93" }}>
+            Penn State CMPSC 445 Final Project ©2022 Created by 
+            <a className="link" href="https://github.com/Miablo"> Mio Diaz</a>
+          </Footer>
+   
+      </>
    
     )
 }

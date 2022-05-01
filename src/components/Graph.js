@@ -8,7 +8,7 @@
   =========================================================
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Card } from 'antd';
 
 import '../index.css';
@@ -22,54 +22,51 @@ import {
     Tooltip,
 } from '@visx/xychart';
 
-const predictionData = [
-    {x: '2022-01-22', y: 177.77},
-    {x: '2022-01-30', y: 145.78},
-    {x: '2022-03-04', y: 145.79},
-    {x: '2022-03-22', y: 145.78},
-    {x: '2022-04-20', y: 145.79},
-]
+const predictionData = [ ], historicData = [ ];
 
-const historicData = [ ]
-
-export function Graph({name}) {
-
-    const [state, setState] = useState("AAPL");
+export function Graph(name) {
+    
+    const [state, setState] = useState(name.panelToGraph);
     const [timeseries,setTimeseries]=useState([]);
+    const nameRef = useRef();
+
+    const handleClick = () => setState(nameRef.current.value);
 
     // Collect Selected Data
     useEffect(() => {
+        setState(name.panelToGraph);
+        console.log("in use effect!");
+        console.log("this is state: " + state);
+        console.log("http://localhost:5000/data/" + state);
         fetch("http://localhost:5000/data/" + state)
         .then((res) => res.json()
             .then((timeseries) => {
                 setTimeseries(timeseries)
-                console.log(timeseries)
                 console.log(timeseries.historic_timeseries.dates)
                 console.log(timeseries.historic_timeseries.values)
-                console.log(predictionData)
-             
-                for(let i = 0; i < 364; i++){
+               
+                for(let i = 335; i < 365; i++){
 
-                    historicData.push({x: timeseries.historic_timeseries.dates[i], 
-                    y: timeseries.historic_timeseries.values[i]})
+                    historicData.push({x: timeseries.historic_timeseries.dates[i].substr(0,10),
+                        y: timeseries.historic_timeseries.values[i]})
+                }
 
-                    // predictionData.push({x: timeseries.prediction_timeseries.dates[i], 
-                    // y: timeseries.prediction_timeseries.values[i]})
-                    // returning null
+                for(let j = 0; j < 5; j++)
+                {
+                    predictionData.push({x: timeseries.prediction_timeseries.dates[j].substr(0,10),
+                        y: timeseries.prediction_timeseries.values[j]})
                 }
            
 
             })
         );
-    }, [])
+    }, [name.panelToGraph, predictionData, historicData])
 
 const accessors = {
     xAccessor: d => d.x,
     yAccessor: d => d.y,
 };
-
     return(
-
      <div className="cardbox">
         <Card size="medium" bordered={false}>
             <XYChart height={300} xScale={{ type: 'band' }} yScale={{ type: 'exponential' }}>
@@ -94,13 +91,10 @@ const accessors = {
                         </div>
                 )}
             />
-    </XYChart>
-
-        </Card>
+        </XYChart>
+    </Card>
     </div>
-
-
-        )
+    )
 }
 
 

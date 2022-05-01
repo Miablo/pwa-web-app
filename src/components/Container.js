@@ -7,7 +7,7 @@
   * Coded by Mio Diaz
   =========================================================
  */
-import { Layout, PageHeader, Space } from 'antd';
+import { Layout, PageHeader} from 'antd';
 import { ScreenClassProvider } from 'react-grid-system';
 
 import React from 'react';
@@ -31,7 +31,7 @@ export function Main() {
           subTitle="ML-Based Stock Analysis" />
 
           <Content>
-              <Graph />
+              {/* <Graph /> */}
           </Content>
 
         </Layout>

@@ -21,27 +21,17 @@ const { Content, Footer, Sider } = Layout;
 export function Main() {
 
     return (
-      <Layout>
-
-        <Sider >
-           {/* company panel is left panel */}
-          <CompanyPanel />
-        </Sider>
 
         <Layout className="site-layout">
 
           <Content className="site-layout-content">
-          	<Container />
+           {/* company panel is left panel */}
+          <CompanyPanel />
           </Content>
 
-          <Footer style={{ textAlign: 'center', background: "#557C93" }}>
-            Penn State CMPSC 445 Final Project ©2022 Created by 
-            <a className="link" href="https://github.com/Miablo"> Mio Diaz</a>
-          </Footer>
+         
 
         </Layout>
-
-      </Layout>
     )
 }
 
