@@ -55,7 +55,12 @@ export function Graph(name) {
                         y: timeseries.prediction_timeseries.values[j]})
                 }
 
-
+                //testing
+                //console.log(timeseries)
+                //console.log(timeseries.historic_timeseries.dates)
+                //console.log(timeseries.historic_timeseries.values)
+                //console.log(historicData);
+                //console.log(predictionData)
             })
         );
     }, [name.panelToGraph, predictionData, historicData])
@@ -64,6 +69,7 @@ const accessors = {
     xAccessor: d => d.x,
     yAccessor: d => d.y,
 };
+
 
     return(
      <div className="cardbox">
