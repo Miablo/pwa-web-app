@@ -46,13 +46,11 @@ export function Graph(name) {
                 console.log(timeseries.historic_timeseries.values)
                
                 for(let i = 335; i < 365; i++){
-
                     historicData.push({x: timeseries.historic_timeseries.dates[i].substr(0,10),
                         y: timeseries.historic_timeseries.values[i]})
                 }
 
-                for(let j = 0; j < 5; j++)
-                {
+                for(let j = 0; j < 5; j++){
                     predictionData.push({x: timeseries.prediction_timeseries.dates[j].substr(0,10),
                         y: timeseries.prediction_timeseries.values[j]})
                 }
